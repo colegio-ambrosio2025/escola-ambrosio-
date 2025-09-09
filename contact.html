@@ -3,8 +3,138 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Contato - Escola ABC</title>
+    <title>Contato - Escola Ambrosío Bini</title>
     <link rel="stylesheet" href="assets/css/style.css">
+    <style>
+        /* Estilos Gerais */
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+            background-color: #f4f4f4;
+            color: #333;
+        }
+
+        header {
+            background-color: #0044cc;
+            padding: 10px 0;
+        }
+
+        nav ul {
+            list-style-type: none;
+            text-align: center;
+            margin: 0;
+        }
+
+        nav ul li {
+            display: inline;
+            margin: 0 10px;
+        }
+
+        nav ul li a {
+            color: white;
+            text-decoration: none;
+            font-size: 18px;
+        }
+
+        main {
+            padding: 40px 20px;
+            text-align: center;
+        }
+
+        h1, p {
+            font-size: 24px; /* Aumentei o tamanho do texto */
+        }
+
+        footer {
+            text-align: center;
+            padding: 20px;
+            background-color: #333;
+            color: white;
+        }
+
+        section {
+            padding: 20px;
+            margin: 20px;
+            background-color: white;
+            box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.1);
+        }
+
+        form {
+            display: flex;
+            flex-direction: column;
+            max-width: 600px;
+            margin: 0 auto;
+        }
+
+        /* Estilos para o formulário */
+        .form-group {
+            position: relative;
+            margin-bottom: 12px; /* Ajustei o espaço */
+        }
+
+        label {
+            font-size: 14px;
+            color: #bbb;
+            position: absolute;
+            top: 12px;
+            left: 12px;
+            pointer-events: none;
+            transition: all 0.3s ease;
+        }
+
+        input, textarea {
+            width: 100%;
+            padding: 12px;
+            font-size: 14px;
+            border: 1px solid #ddd;
+            border-radius: 4px;
+            transition: border-color 0.3s ease;
+        }
+
+        input:focus, textarea:focus {
+            border-color: #007BFF;
+            outline: none;
+        }
+
+        textarea {
+            resize: none;
+            height: 120px;
+        }
+
+        button {
+            padding: 14px;
+            background-color: #0044cc;
+            color: white;
+            border: none;
+            border-radius: 4px;
+            font-size: 16px;
+            cursor: pointer;
+            width: 100%;
+        }
+
+        button:hover {
+            background-color: #0033aa;
+        }
+
+        /* Placeholder interativo */
+        input:not(:placeholder-shown) ~ label,
+        textarea:not(:placeholder-shown) ~ label {
+            font-size: 12px;
+            top: -10px;
+            color: #007BFF;
+        }
+
+        /* Mensagem de agradecimento */
+        .thank-you-message {
+            text-align: center;
+            font-size: 18px;
+            color: #28a745;
+            margin-top: 20px;
+            display: none;
+        }
+
+    </style>
 </head>
 <body>
     <header>
@@ -21,23 +151,63 @@
     <main>
         <section>
             <h1>Entre em Contato</h1>
-            <form action="#" method="POST">
-                <label for="nome">Nome:</label>
-                <input type="text" id="nome" name="nome" required>
+            <form id="contactForm" action="#" method="POST" onsubmit="return handleSubmit(event)">
+                <!-- Nome -->
+                <div class="form-group">
+                    <input type="text" id="nome" name="nome" required placeholder=" " onfocus="removePlaceholder('nome')" onblur="resetPlaceholder('nome')">
+                    <label for="nome">Nome</label>
+                </div>
 
-                <label for="email">E-mail:</label>
-                <input type="email" id="email" name="email" required>
+                <!-- E-mail -->
+                <div class="form-group">
+                    <input type="email" id="email" name="email" required placeholder=" " onfocus="removePlaceholder('email')" onblur="resetPlaceholder('email')">
+                    <label for="email">E-mail</label>
+                </div>
 
-                <label for="mensagem">Mensagem:</label>
-                <textarea id="mensagem" name="mensagem" required></textarea>
+                <!-- Mensagem -->
+                <div class="form-group">
+                    <textarea id="mensagem" name="mensagem" required placeholder=" " onfocus="removePlaceholder('mensagem')" onblur="resetPlaceholder('mensagem')"></textarea>
+                    <label for="mensagem">Mensagem</label>
+                </div>
 
                 <button type="submit">Enviar</button>
             </form>
+
+            <!-- Mensagem de Agradecimento -->
+            <div id="thankYouMessage" class="thank-you-message">
+                <p>Obrigado pela preferência! Fique de olho em seu e-mail para não perder o contato ou vaga.</p>
+            </div>
         </section>
     </main>
 
     <footer>
-        <p>&copy; 2025 Escola ABC - Todos os direitos reservados.</p>
+        <p>&copy; 2025 Escola Ambrosío Bini - Todos os direitos reservados.</p>
     </footer>
+
+    <script>
+        function removePlaceholder(id) {
+            const label = document.querySelector(`label[for=${id}]`);
+            label.style.display = 'none';
+        }
+
+        function resetPlaceholder(id) {
+            const input = document.getElementById(id);
+            if (!input.value) {
+                const label = document.querySelector(`label[for=${id}]`);
+                label.style.display = 'block';
+            }
+        }
+
+        // Função para lidar com o envio do formulário
+        function handleSubmit(event) {
+            event.preventDefault();  // Previne o envio do formulário padrão
+
+            // Esconde o formulário
+            document.getElementById('contactForm').style.display = 'none';
+
+            // Exibe a mensagem de agradecimento
+            document.getElementById('thankYouMessage').style.display = 'block';
+        }
+    </script>
 </body>
 </html>
