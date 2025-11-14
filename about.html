@@ -3,14 +3,165 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Sobre - Escola ABC</title>
+    <title>Sobre - Escola Ambrosío Bini</title>
+    
+    <!-- Caminho do CSS (na pasta raiz) -->
     <link rel="stylesheet" href="assets/css/style.css">
+
+    <!-- CSS DA PÁGINA SOBRE -->
+    <style>
+        /* Container principal */
+        .about-page {
+            max-width: 1200px;
+            margin: 40px auto;
+            padding: 20px;
+        }
+
+        /* Container que divide em duas colunas */
+        .about-container {
+            display: flex;
+            flex-wrap: wrap; /* Em telas pequenas, quebra a linha */
+            gap: 40px;
+            align-items: flex-start; /* Alinha os itens no topo */
+        }
+
+        /* Coluna da Imagem */
+        .about-image {
+            flex: 1; /* Ocupa 1 parte */
+            min-width: 300px;
+            max-width: 500px; /* Limita o tamanho da imagem */
+        }
+
+        .about-image img {
+            width: 100%;
+            height: auto;
+            border-radius: 8px;
+            box-shadow: 0 8px 16px rgba(0,0,0,0.15);
+        }
+
+        /* Coluna do Texto */
+        .about-content {
+            flex: 1.5; /* Ocupa 1.5 partes (mais largo) */
+            min-width: 300px;
+        }
+
+        .about-content h1 {
+            font-size: 2.5rem;
+            color: #004a99;
+            margin-bottom: 20px;
+            border-bottom: 3px solid #0056b3;
+            padding-bottom: 10px;
+        }
+
+        .about-content p {
+            font-size: 1.1rem;
+            color: #555;
+            line-height: 1.7;
+            margin-bottom: 15px;
+        }
+
+        /* --- LÓGICA DO "LER MAIS" --- */
+
+        /* O container do texto que será cortado */
+        .text-wrapper {
+            /* Começa "cortado" (altura máxima de 100px) */
+            max-height: 100px; 
+            overflow: hidden; /* Esconde o que passar */
+            
+            /* A animação de "descer" */
+            transition: max-height 0.7s ease-in-out;
+            
+            /* Efeito de fade no final do texto cortado */
+            position: relative;
+        }
+        
+        /* O 'fade' no final do texto (quando não expandido) */
+        .text-wrapper::after {
+            content: '';
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            right: 0;
+            height: 50px;
+            background: linear-gradient(to bottom, transparent, #ffffff);
+            transition: opacity 0.3s;
+        }
+
+        /* Quando expandido, o wrapper cresce e o fade some */
+        .text-wrapper.expanded {
+            max-height: 1000px; /* Altura suficiente para todo o texto */
+        }
+        
+        .text-wrapper.expanded::after {
+            opacity: 0; /* Some o 'fade' */
+        }
+
+        /* Botão "Ler Mais" */
+        .read-more-btn {
+            background-color: transparent;
+            border: 2px solid #0056b3;
+            color: #0056b3;
+            padding: 10px 20px;
+            border-radius: 8px;
+            cursor: pointer;
+            font-weight: bold;
+            font-size: 1rem;
+            display: inline-flex; /* Para alinhar o texto e a seta */
+            align-items: center;
+            gap: 8px; /* Espaço entre o texto e a seta */
+            margin-top: 15px;
+            transition: all 0.3s;
+        }
+
+        .read-more-btn:hover {
+            background-color: #0056b3;
+            color: #fff;
+        }
+
+        /* A 'flexinha' (Seta) */
+        .read-more-btn .arrow {
+            width: 16px;
+            height: 16px;
+            transition: transform 0.3s;
+        }
+
+        /* Gira a seta quando o botão está expandido */
+        .read-more-btn.expanded .arrow {
+            transform: rotate(180deg);
+        }
+
+
+        /* --- RODAPÉ PROFISSIONAL --- */
+        .site-footer {
+            background-color: #333; 
+            color: #f4f4f4; 
+            padding: 40px 20px;
+            margin-top: 50px;
+        }
+        .footer-container {
+            display: flex; flex-wrap: wrap; justify-content: space-around;
+            max-width: 1200px; margin: 0 auto; gap: 20px;
+        }
+        .footer-column { flex: 1; min-width: 250px; }
+        .footer-column h3 {
+            font-size: 1.2rem; color: #ffffff; border-bottom: 2px solid #0056b3;
+            padding-bottom: 10px; margin-bottom: 15px;
+        }
+        .footer-column p { line-height: 1.7; color: #ccc; }
+        .footer-column p a { color: #ccc; text-decoration: none; transition: color 0.3s; }
+        .footer-column p a:hover { color: #fff; text-decoration: underline; }
+        .footer-bottom {
+            text-align: center; margin-top: 30px; padding-top: 20px;
+            border-top: 1px solid #555; color: #aaa; font-size: 0.9rem;
+        }
+    </style>
 </head>
 <body>
     <header>
         <nav>
             <ul>
-                <li><a href="index.html">Início</a></li>
+                <!-- Caminho para a 'pasta index' -->
+                <li><a href="index/index.html">Início</a></li>
                 <li><a href="about.html">Sobre</a></li>
                 <li><a href="portfolio.html">Projetos</a></li>
                 <li><a href="contact.html">Contato</a></li>
@@ -18,15 +169,97 @@
         </nav>
     </header>
 
-    <main>
-        <section>
-            <h1>Sobre a Escola ABC</h1>
-            <p>A Escola ABC oferece ensino de qualidade para estudantes de todas as idades. Nosso objetivo é formar cidadãos preparados para o futuro!</p>
+    <main class="about-page">
+        <section class="about-container">
+            
+            <!-- Coluna da Imagem -->
+            <div class="about-image">
+                <img src="assets/images/escola 1.jpg" alt="Fachada da Escola Ambrosío Bini">
+            </div>
+
+            <!-- Coluna do Texto -->
+            <div class="about-content">
+                <h1>Nossa História: Referência em Educação Profissional</h1>
+                
+                <p>O <strong>Colégio Estadual Ambrósio Bini</strong> é mais do que uma instituição de ensino; é um pilar na comunidade de Almirante Tamandaré, dedicado a transformar vidas através da educação profissional de excelência.</p>
+                
+                <!-- O container que será expandido -->
+                <div class="text-wrapper" id="expandable-text">
+                    <p>Com uma trajetória de dedicação, nos tornamos uma <strong>referência</strong> na formação de jovens e adultos, preparando-os não apenas para o mercado de trabalho, mas para os desafios de um mundo em constante mudança.</p>
+                    
+                    <h3>Nossa Missão</h3>
+                    <p>Nossa missão é clara: oferecer um ensino público de alta qualidade, focado no desenvolvimento de competências técnicas e habilidades socioemocionais. Acreditamos que cada aluno tem um potencial único, e nosso papel é fornecer as ferramentas e o ambiente necessários para que esse potencial floresça.</p>
+                    
+                    <h3>Infraestrutura e Valores</h3>
+                    <p>Contamos com laboratórios modernos para os cursos de Desenvolvimento de Sistemas e Robótica, além de um corpo docente qualificado e comprometido. Nossos valores são baseados na inovação, no respeito, na ética e no compromisso com o sucesso de nossos estudantes, formando cidadãos críticos e preparados para o futuro.</p>
+                </div>
+
+                <!-- O Botão "Ler Mais" -->
+                <button id="read-more-toggle" class="read-more-btn">
+                    <span id="read-more-text">Ler Mais</span>
+                    
+                    <!-- A "flexinha" (Seta SVG) -->
+                    <svg class="arrow" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="2.5" stroke="currentColor">
+                        <path stroke-linecap="round" stroke-linejoin="round" d="M19.5 8.25l-7.5 7.5-7.5-7.5" />
+                    </svg>
+                </button>
+            </div>
         </section>
     </main>
 
-    <footer>
-        <p>&copy; 2025 Escola ABC - Todos os direitos reservados.</p>
+    <!-- Rodapé Completo -->
+    <footer class="site-footer">
+        <div class="footer-container">
+            <div class="footer-column">
+                <h3>Colégio Estadual Ambrósio Bini</h3>
+                <p>Formando profissionais qualificados para os desafios do futuro em Almirante Tamandaré.</p>
+            </div>
+            <div class="footer-column">
+                <h3>Entre em Contato</h3>
+                <p>
+                    <strong>Telefone:</strong><br>
+                    <a href="tel:+554136571333">(41) 3657-1333</a>
+                </p>
+                <p>
+                    <strong>Email (Seed-PR):</strong><br>
+                    <a href="mailto:attambrosio@seed.pr.gov.br">attambrosio@seed.pr.gov.br</a>
+                </p>
+            </div>
+            <div class="footer-column">
+                <h3>Nossa Localização</h3>
+                <p>
+                    Rua Bertolina Kendrik de Oliveira, 869<br>
+                    Vila Santa Terezinha, Almirante Tamandaré - PR<br>
+                    CEP: 83501-150
+                </p>
+            </div>
+        </div>
+        <div class="footer-bottom">
+            <p>&copy; 2025 Colégio Estadual Ambrosío Bini - Todos os direitos reservados.</p>
+        </div>
     </footer>
+
+    <!-- SCRIPT para o botão "Ler Mais" -->
+    <script>
+        // 1. Seleciona os elementos
+        const toggleBtn = document.getElementById('read-more-toggle');
+        const textWrapper = document.getElementById('expandable-text');
+        const btnText = document.getElementById('read-more-text');
+
+        // 2. Adiciona o evento de clique
+        toggleBtn.addEventListener('click', () => {
+            
+            // 3. Adiciona/Remove a classe 'expanded' nos elementos
+            textWrapper.classList.toggle('expanded');
+            toggleBtn.classList.toggle('expanded');
+
+            // 4. Muda o texto do botão
+            if (textWrapper.classList.contains('expanded')) {
+                btnText.textContent = 'Ler Menos';
+            } else {
+                btnText.textContent = 'Ler Mais';
+            }
+        });
+    </script>
 </body>
 </html>
